@@ -1,0 +1,80 @@
+{
+	"groups": [
+		{
+			"keys": "bg_jpg,egret_icon_png,description_json,black_jpg,ground1_jpg,ground2_jpg,stand3_png,stand4_png,stand2_png,walk1_png,walk2_png,walk4_png,walk3_png,stand1_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "bg_jpg",
+			"type": "image",
+			"url": "assets/bg.jpg"
+		},
+		{
+			"name": "egret_icon_png",
+			"type": "image",
+			"url": "assets/egret_icon.png"
+		},
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "black_jpg",
+			"type": "image",
+			"url": "assets/black.jpg"
+		},
+		{
+			"name": "ground1_jpg",
+			"type": "image",
+			"url": "assets/ground1.jpg"
+		},
+		{
+			"name": "ground2_jpg",
+			"type": "image",
+			"url": "assets/ground2.jpg"
+		},
+		{
+			"name": "stand3_png",
+			"type": "image",
+			"url": "assets/stand3.png"
+		},
+		{
+			"name": "stand4_png",
+			"type": "image",
+			"url": "assets/stand4.png"
+		},
+		{
+			"name": "stand2_png",
+			"type": "image",
+			"url": "assets/stand2.png"
+		},
+		{
+			"name": "walk1_png",
+			"type": "image",
+			"url": "assets/walk1.png"
+		},
+		{
+			"name": "walk2_png",
+			"type": "image",
+			"url": "assets/walk2.png"
+		},
+		{
+			"name": "walk4_png",
+			"type": "image",
+			"url": "assets/walk4.png"
+		},
+		{
+			"name": "walk3_png",
+			"type": "image",
+			"url": "assets/walk3.png"
+		},
+		{
+			"name": "stand1_png",
+			"type": "image",
+			"url": "assets/stand1.png"
+		}
+	]
+}
