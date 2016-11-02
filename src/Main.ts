@@ -47,8 +47,8 @@ class Player extends egret.DisplayObjectContainer {    //角色
         this._stateMachine = new StateMachine();
         this._body.x = 250;
         this._body.y = 250;
-        this._body.width = 100;
-        this._body.height = 100;
+        this._body.width = 150;
+        this._body.height = 150;
         this._ifstand = true;
         this._ifwalk = false;
 
@@ -178,11 +178,21 @@ class StateMachine {
 
 class TileMap extends egret.DisplayObjectContainer{
 public static TILE_SIZE = 49;
+    _player: Player;
+    _block: egret.Bitmap;
+   //_astar: AStar;
+    public _i: number;
+    moveX: number[] = [];
+    moveY: number[] = [];
 
-constructor(){
-    super();
-    this.init();
-}
+
+    constructor(player: Player) {
+        super();
+        this.init();
+        this._player = player;
+        this._i = 0;
+    }
+
 private init(){
 
     var config:TileData[]=[
@@ -281,11 +291,22 @@ private init(){
          var gridX = Math.floor(localX/TileMap.TILE_SIZE);
          var gridY = Math.floor(localY/TileMap.TILE_SIZE);
          console.log(gridX,gridY);
-
     },this)
 }
-
+ private timerFunc() {
+        this._i++;
+        this.moveX[this._i] = this.scaleX * TileMap.TILE_SIZE+TileMap.TILE_SIZE / 2;
+        this.moveY[this._i] = this.scaleY *TileMap.TILE_SIZE + TileMap.TILE_SIZE / 2;
+       
+            this._player.move(this.moveX[this._i], this.moveY[this._i]);
+            egret.Tween.get(this._player._body).to({ x: this.moveX[this._i], y: this.moveY[this._i] }, 600).wait(10).call(function () { this._player.idle() }, this);
+     
+    }
+    private timerComFunc() {
+        console.log("计时结束");
+    }
 }
+
 interface TileData{
     x:number;
     y:number;
@@ -308,6 +329,7 @@ class Tile extends egret.DisplayObjectContainer{
     }
 
 }
+
 class Main extends egret.DisplayObjectContainer {
 
     /**
@@ -403,8 +425,8 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene(): void {
 
-        console.log("****");
-        var map = new TileMap();
+        
+        var map = new TileMap(player);
         this.addChild(map);
 
   

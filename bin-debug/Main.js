@@ -39,8 +39,8 @@ var Player = (function (_super) {
         this._stateMachine = new StateMachine();
         this._body.x = 250;
         this._body.y = 250;
-        this._body.width = 100;
-        this._body.height = 100;
+        this._body.width = 150;
+        this._body.height = 150;
         this._ifstand = true;
         this._ifwalk = false;
     }
@@ -144,9 +144,13 @@ var StateMachine = (function () {
 egret.registerClass(StateMachine,'StateMachine');
 var TileMap = (function (_super) {
     __extends(TileMap, _super);
-    function TileMap() {
+    function TileMap(player) {
         _super.call(this);
+        this.moveX = [];
+        this.moveY = [];
         this.init();
+        this._player = player;
+        this._i = 0;
     }
     var d = __define,c=TileMap,p=c.prototype;
     p.init = function () {
@@ -229,6 +233,16 @@ var TileMap = (function (_super) {
             var gridY = Math.floor(localY / TileMap.TILE_SIZE);
             console.log(gridX, gridY);
         }, this);
+    };
+    p.timerFunc = function () {
+        this._i++;
+        this.moveX[this._i] = this.scaleX * TileMap.TILE_SIZE + TileMap.TILE_SIZE / 2;
+        this.moveY[this._i] = this.scaleY * TileMap.TILE_SIZE + TileMap.TILE_SIZE / 2;
+        this._player.move(this.moveX[this._i], this.moveY[this._i]);
+        egret.Tween.get(this._player._body).to({ x: this.moveX[this._i], y: this.moveY[this._i] }, 600).wait(10).call(function () { this._player.idle(); }, this);
+    };
+    p.timerComFunc = function () {
+        console.log("计时结束");
     };
     TileMap.TILE_SIZE = 49;
     return TileMap;
@@ -326,8 +340,7 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
-        console.log("****");
-        var map = new TileMap();
+        var map = new TileMap(player);
         this.addChild(map);
         var stageW = this.stage.stageWidth;
         var stageH = this.stage.stageHeight;
